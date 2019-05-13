@@ -1,9 +1,8 @@
 import SimpleSchema from 'simpl-schema';
 
 export default new SimpleSchema({
-  url: {
+  owner: {
     type: String,
-    label: 'Your link',
-    regEx: SimpleSchema.RegEx.Url
+    required: true,
   }
 });

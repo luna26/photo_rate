@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 export default class Login extends Component {
   constructor(props) {
@@ -17,6 +18,23 @@ export default class Login extends Component {
     });
   };
 
+  facebookLogin = () => {
+    Meteor.loginWithFacebook(
+      {
+        requestPermissions: ["email"]
+      },
+      err => {
+        if (err) {
+          console.log('err', err);
+          // handle error
+        } else {
+          // successful login!
+          console.log('sucess', err);
+        }
+      }
+    );
+  };
+
   render() {
     return (
       <div>
@@ -31,7 +49,9 @@ export default class Login extends Component {
             placeholder="password"
           />
           <button>Enter</button>
+          <Link to="/signup">Have an account ?</Link>
         </form>
+        <button onClick={this.facebookLogin}>Facebook Login</button>
       </div>
     );
   }

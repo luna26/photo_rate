@@ -3,10 +3,16 @@ import { Meteor } from "meteor/meteor";
 import { createBrowserHistory } from "history";
 import { Switch, Router, Route } from "react-router";
 
-import Home from "../ui/home/Home";
-import Login from "../ui/login/Login";
-import Signup from "../ui/signup/Signup";
-import NotFound from "../ui/not-found/NotFound";
+import Home from "../ui/components/home/Home";
+import Login from "../ui/components/login/Login";
+import Signup from "../ui/components/signup/Signup";
+import NotFound from "../ui/components/not-found/NotFound";
+
+//hocs
+import withHeader from '../ui/components/hocs/withHeader';
+
+//hocs component
+const HomeHeader = withHeader(Home, true, 'HOME');
 
 const browserHistory = createBrowserHistory();
 const unaunthenticatedPages = ["/", "signup"];
@@ -61,7 +67,7 @@ export const routes = (
       <Route
         path="/home"
         render={() => {
-          return onEnterPrivatePage(Home);
+          return onEnterPrivatePage(HomeHeader);
         }}
       />
       <Route

@@ -1,0 +1,22 @@
+@import './components/_private-header.scss';
+@import './components/_home.scss';
+@import './components/_list-images.scss';
+@import './components/_add-photo.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  padding: 0 !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+.main-container {
+  background: #f3f3f3;
+}

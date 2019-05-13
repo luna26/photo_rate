@@ -1,0 +1,22 @@
+.main-photos-container {
+  width: 50%;
+  background: #ffffff;
+}
+.list-photos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .photo-item-container {
+    .photo-title-container {
+      padding: 15px;
+    }
+
+    .photo-img-container {
+      img {
+        width: 100%;
+        height: 450px;
+      }
+    }
+  }
+}
