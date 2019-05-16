@@ -3,16 +3,17 @@ import { Meteor } from "meteor/meteor";
 import { createBrowserHistory } from "history";
 import { Switch, Router, Route } from "react-router";
 
+//components
 import Home from "../ui/components/home/Home";
 import Login from "../ui/components/login/Login";
 import Signup from "../ui/components/signup/Signup";
 import NotFound from "../ui/components/not-found/NotFound";
 
 //hocs
-import withHeader from '../ui/components/hocs/withHeader';
+import withHeader from "../ui/components/hocs/withHeader";
 
 //hocs component
-const HomeHeader = withHeader(Home, true, 'HOME');
+const HomeHeader = withHeader(Home, true, "");
 
 const browserHistory = createBrowserHistory();
 const unaunthenticatedPages = ["/", "signup"];
@@ -48,34 +49,36 @@ export const onAuthChange = isAutheticated => {
 };
 
 // end - controll the back/next broser buttons behavior
-export const routes = (
-  <Router history={browserHistory}>
-    <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => {
-          return onEnterPublicPage(Login);
-        }}
-      />
-      <Route
-        path="/signup"
-        render={() => {
-          return onEnterPublicPage(Signup);
-        }}
-      />
-      <Route
-        path="/home"
-        render={() => {
-          return onEnterPrivatePage(HomeHeader);
-        }}
-      />
-      <Route
-        path="*"
-        render={() => {
-          return <NotFound />;
-        }}
-      />
-    </Switch>
-  </Router>
-);
+export default (routes = () => {
+  return (
+    <Router history={browserHistory}>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return onEnterPublicPage(Login);
+          }}
+        />
+        <Route
+          path="/signup"
+          render={() => {
+            return onEnterPublicPage(Signup);
+          }}
+        />
+        <Route
+          path="/home"
+          render={() => {
+            return onEnterPrivatePage(HomeHeader);
+          }}
+        />
+        <Route
+          path="*"
+          render={() => {
+            return <NotFound />;
+          }}
+        />
+      </Switch>
+    </Router>
+  );
+});

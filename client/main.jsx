@@ -1,9 +1,10 @@
+import React from 'react';
 import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
 import { Tracker } from "meteor/tracker";
-import { Session } from 'meteor/session';
 
-import { routes, onAuthChange } from '../imports/routes/routes';
+import App from '../imports/ui/App';
+import { onAuthChange } from '../imports/routes/routes';
 import '../imports/startup/simple-schema-config';
 
 Tracker.autorun(() => {
@@ -12,5 +13,5 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
-  render(routes, document.getElementById("react-target"));
+  render(<App />, document.getElementById("react-target"));
 });

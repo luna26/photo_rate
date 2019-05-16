@@ -2,15 +2,22 @@
 @import './components/_home.scss';
 @import './components/_list-images.scss';
 @import './components/_add-photo.scss';
+@import './components/_login.scss';
+@import './components/_icon-button.scss';
 
 * {
   padding: 0;
   margin: 0;
+  border: none;
 }
 
 body {
   height: 100vh;
   padding: 0 !important;
+}
+
+#react-target {
+  height: 100%;
 }
 
 button {
@@ -19,4 +26,18 @@ button {
 
 .main-container {
   background: #f3f3f3;
+}
+
+.hide {
+  display: none;
+}
+
+//hide vertical scroll
+html::-webkit-scrollbar {
+  width: 0 !important
+}
+
+html {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
 }

@@ -3,13 +3,12 @@ import {
 } from 'meteor/meteor';
 import {
   FilesCollection
-} from 'meteor/ostrio:files';
+} from 'meteor/ostrio:files'; 
 
 //utils
-import { authorizedUser } from '../utils';
-import { PUB_FILES_IMAGES_ALL } from '../names';
-
-//names
+import {
+  authorizedUser
+} from '../utils';
 import {
   IMAGES
 } from '../names';
@@ -18,7 +17,7 @@ import {
 import imagesPub from '../publications/images-publications';
 
 //methods
-import getPhotosMethods from '../methods/photo-methods';
+import getImagesMethods from '../methods/images-methods';
 
 const IMAGES_PATH = '../../../../../public';
 
@@ -31,8 +30,22 @@ export const Images = new FilesCollection({
 
   onBeforeUpload(file) {
 
-    file.meta.new =  'desde el server';
-    
+    let user = Meteor.user();
+
+    //empty array for the new images
+    file.ratings = [];
+
+    //user info facebook
+    if (user.services.facebook) {
+      const {
+        pictureUrl,
+        name
+      } = user.services.facebook;
+      file.pictureUrl = pictureUrl;
+      file.nameOwner = name;
+    }
+
+
     authorizedUser(Meteor.userId());
 
     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
@@ -43,6 +56,8 @@ export const Images = new FilesCollection({
     return 'Please upload image, with size equal or less than 10MB';
   }
 });
+
+Meteor.methods(getImagesMethods(Images));
 
 if (Meteor.isServer) {
   imagesPub(Images);

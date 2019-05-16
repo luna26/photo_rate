@@ -19,6 +19,7 @@ export default class Home extends Component {
       [PUB_FILES_IMAGES_ALL],
       [Images]
     );
+
     return (
       <div className="home-container">
         <ListPhotoWithSubscription />

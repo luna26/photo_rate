@@ -21,17 +21,6 @@ export default class AddPhoto extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll = () => {
-    const { top, height } = this.refs.addPhoto.getBoundingClientRect();
-
-    let activeAnimation = window.scrollY > top + height;
-    if(activeAnimation) this.scrollAnimation();
-  };
-
-  scrollAnimation = () => {
-    
-  }
-
   onSubmit = e => {
     e.preventDefault();
 

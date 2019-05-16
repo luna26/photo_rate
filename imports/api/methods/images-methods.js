@@ -2,13 +2,11 @@ import shortid from 'shortid';
 
 //names
 import {
-  PHOTO_INSERT,
   PHOTO_ADD_RATE,
   PHOTO_REMOVE_RATE
 } from '../names';
 
 //schemas
-import PhotoSchema from '../schemas/photo/photo';
 import RateSchema from '../schemas/photo/rating';
 
 //utils
@@ -16,42 +14,26 @@ import {
   authorizedUser
 } from '../utils';
 
-export default (Photos) => {
+export default (Images) => {
   return ({
-
-    //insert new photo
-    [PHOTO_INSERT]({
-      photoName,
-      fileObj
-    }) {
-
-      const userId = this.userId;
-      authorizedUser(userId);
-
-      const data = {
-        _id: shortid.generate(),
-        userId,
-        photoName,
-        idImage: fileObj._id,
-        ratings: []
-      }
-
-      PhotoSchema.validate(data);
-      Photos.insert(data);
-    },
 
     //insert rate photo
     [PHOTO_ADD_RATE](photoId) {
 
-      const userId = this.userId;
+      const userId = this.userId; 
       authorizedUser(userId);
 
-      const data = {
-        owner: this.userId
-      }
+      const {pictureUrl, name} = Meteor.user().services.facebook;
 
-      RateSchema.validate(data);
-      Photos.update({
+      const data = {
+        owner: this.userId,
+        pictureUrl,
+        name
+      }
+      
+      // RateSchema.validate(data);
+
+      Images.update({
         _id: photoId
       }, {
         $push: {
@@ -61,12 +43,13 @@ export default (Photos) => {
     },
 
     //remove rate photo
+    
     [PHOTO_REMOVE_RATE](photoId) {
-
       const userId = this.userId;
+
       authorizedUser(userId);
 
-      Photos.update({
+      Images.update({
         _id: photoId
       }, {
         $pull: {
